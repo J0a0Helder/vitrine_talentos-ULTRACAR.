@@ -4,7 +4,14 @@
 module.exports = {
   async up (queryInterface, Sequelize) {
     await queryInterface.createTable('servicos', {
-      colaboradoId: {
+      id: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+      },
+
+      colaboradorId: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         onUpdate: "CASCADE",
@@ -13,7 +20,7 @@ module.exports = {
           model: "colaboradores",
           key: "id",
         },
-        field: "colaborado_id",
+        field: "colaborador_id",
       },
 
       clienteId: {
@@ -36,7 +43,7 @@ module.exports = {
 
       finalizadoEm: {
         type: Sequelize.DATE,
-        allowNull: false,
+        allowNull: true,
         field: "finalizado_em",
       },
 

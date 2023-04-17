@@ -2,21 +2,22 @@ import React, { useContext, useEffect, useState, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { requestPost } from '../services/request';
 import MyContext from '../context/MyContext';
+import NavBar from '../Components/Navbar';
 
 export default function HomePage() {
   const {
-    getEmployees, getClients,
-    employeesList, clientsLists,
+    getEmployees, getClients, getProducts,
+    employeesList, clientsLists, productsList
   } = useContext(MyContext);
   
-  const [saleInfo, setSaleInfo] = useState({colaboradorId: '1', clienteId: '1'});
+  const [saleInfo, setSaleInfo] = useState({colaboradorId: '1', clienteId: '1', total: '0'});
   const navigate = useNavigate();
 
   const startService = async (event) => {
     event.preventDefault();
     try {
-      const { id } = await requestPost('/service', { saleInfo });
-      navigate(`/service/orders/${id}`);
+      await requestPost('/service', { ...saleInfo });
+      navigate(`/service/orders`);
     } catch (error) {
       console.log(error.message);
     }
@@ -34,52 +35,75 @@ export default function HomePage() {
   useEffect(() => {
     getClients();
     getEmployees();
-  }, [getClients, getEmployees]);
+    getProducts()
+  }, [getClients, getEmployees, getProducts]);
 
   return (
-    <form>
-      <label>
-        <h4>P. colaboradora Responsável:</h4>
-        <select
-          name="colaboradorId"
-          onChange={handleChange}
-          defaultValue={1}
-        >
-          { employeesList.map((emp, index) => (
-            <option
-              key={ index }
-              name={ emp.nome }
-              value={ emp.id }
-            >
-              {emp.nome}
-            </option>
-          ))}
-        </select>
-      </label>
-      <label>
-        <h4>Cliente:</h4>
-        <select
-          name="clienteId"
-          onChange={ handleChange }
-        >
-          { clientsLists.map((client, index) => (
-            <option
-              key={ index }
-              name={ client.nome }
-              value={ client.id }
-            >
-              {client.nome}
-            </option>
-          ))}
-        </select>
-      </label>
-      <button
-          type="button"
-          className="button"
-          onClick={ startService }
-        >
-          Iniciar Atendimento
-        </button>
-    </form>
+    <>
+      <NavBar />
+      <form>
+        <label>
+          <h4>P. colaboradora Responsável:</h4>
+          <select
+            name="colaboradorId"
+            onChange={handleChange}
+            defaultValue={1}
+          >
+            { employeesList.map((emp, index) => (
+              <option
+                key={ index }
+                name={ emp.nome }
+                value={ emp.id }
+              >
+                {emp.nome}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          <h4>Cliente:</h4>
+          <select
+            name="clienteId"
+            onChange={ handleChange }
+          >
+            { clientsLists.map((client, index) => (
+              <option
+                key={ index }
+                name={ client.nome }
+                value={ client.id }
+              >
+                {client.nome}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          <h4>Produto inicial:</h4>
+          <select
+            name="total"
+            onChange={handleChange}
+            defaultValue={'Apenas Mão de Obra'}
+          >
+            { productsList.map((prod, index) => (
+              <option
+                key={ index }
+                name={ prod.nome }
+                value={ prod.preco }
+              >
+                {prod.nome}
+              </option>
+            ))}
+          </select>
+        </label>
+        <h2>TOTAL PARCIAL: {`R$${saleInfo.total}`}</h2>
+        <button
+            type="button"
+            className="button"
+            onClick={ startService }
+          >
+            Iniciar Atendimento
+          </button>
+      </form>
+    </>
   )
 }

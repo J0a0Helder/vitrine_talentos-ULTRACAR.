@@ -3,6 +3,6 @@ const clientsController = require('../controllers/clientsController');
 
 const clientsRouter = express.Router();
 
-clientsRouter.get('/', clientsController.getAllClients);
+clientsRouter.get('/', clientsController.getAll);
 
 module.exports = clientsRouter;
