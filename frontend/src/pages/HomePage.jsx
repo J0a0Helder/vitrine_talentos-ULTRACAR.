@@ -8,12 +8,9 @@ export default function HomePage() {
     getEmployees, getClients,
     employeesList, clientsLists,
   } = useContext(MyContext);
-
+  
+  const [saleInfo, setSaleInfo] = useState({colaboradorId: '1', clienteId: '1'});
   const navigate = useNavigate();
-
-  const [saleInfo, setSaleInfo] = useState([]);
-
-  // console.log(formsInfo);
 
   const startService = async (event) => {
     event.preventDefault();
@@ -45,7 +42,8 @@ export default function HomePage() {
         <h4>P. colaboradora Responsável:</h4>
         <select
           name="colaboradorId"
-          onChange={ handleChange }
+          onChange={handleChange}
+          defaultValue={1}
         >
           { employeesList.map((emp, index) => (
             <option

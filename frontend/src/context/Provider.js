@@ -29,7 +29,7 @@ function Provider({ children }) {
 
   const getEmployees = useCallback(async () => {
     try {
-      const employees = await requestGet('/users');
+      const employees = await requestGet('/employees');
       setEmployeesList(employees);
     } catch (error) {
       console.log(error.message);
