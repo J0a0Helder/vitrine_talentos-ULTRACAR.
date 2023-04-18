@@ -1,4 +1,4 @@
-const { Servicos, Clientes, Colaboradores } = require('../../database/models');
+const { Servicos } = require('../../database/models');
 
 const createNewSale = async ({ total, colaboradorId, clienteId }) => {  
   const iniciadoEm = Date.now();
@@ -14,22 +14,18 @@ const createNewSale = async ({ total, colaboradorId, clienteId }) => {
   return allEmployees;
 };
 
-const getAllSales = async () => {
-  const sales = await Clientes.findAll(
-    {
-      include: [
-        {
-          model: Colaboradores,
-          as: 'colaboradores',
-          attributes: { exclude: ['id', 'cargo'] },
-        },
-      ],
-    },
-  );
-  return sales;
+const getSaleById = async (id) => {  
+  const sale = await Servicos.findOne({ where: {id} });
+  return sale;
+};
+
+const finishSale = async ({ total, finalizadoEm }, id) => {
+  const sale = await Servicos.update({ total, finalizadoEm }, { where: { id } }); 
+  return sale;
 };
 
 module.exports = {
   createNewSale,
-  getAllSales,
+  finishSale,
+  getSaleById,
 };

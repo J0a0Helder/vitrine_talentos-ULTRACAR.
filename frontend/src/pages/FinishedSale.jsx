@@ -4,7 +4,7 @@ import { requestGet, requestPost } from '../services/request';
 import MyContext from '../context/MyContext';
 import NavBar from '../Components/Navbar';
 
-export default function HomePage() {
+export default function FinishedSale() {
   const {
     getEmployees, getClients,
     clientsLists, employeesList

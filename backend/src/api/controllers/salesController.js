@@ -5,9 +5,16 @@ const create = async (req, res) => {
   return res.status(201).json(sale);
 };
 
-const getAll = async (_req, res) => {
-  const sales = await salesService.getAllSales();
-  return res.status(200).json(sales);
+const getById = async (req, res) => {
+  const { id } = req.params
+  const sale = await salesService.getSaleById(id);
+  return res.status(200).json(sale);
 };
 
-module.exports = { create, getAll };
+const finishSale = async (req, res) => {
+  const { id } = req.params
+  const salesFinished = await salesService.finishSale(req.body, id);
+  return res.status(200).json(salesFinished);
+};
+
+module.exports = { create, finishSale, getById };

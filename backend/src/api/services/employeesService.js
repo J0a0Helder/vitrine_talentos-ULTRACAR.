@@ -5,6 +5,12 @@ const getAllEmployees = async () => {
   return allEmployees;
 };
 
+const getEmployeeById = async (id) => {  
+  const employee = await Colaboradores.findOne({ where: {id} });
+  return employee;
+};
+
 module.exports = {
   getAllEmployees,
+  getEmployeeById,
 };

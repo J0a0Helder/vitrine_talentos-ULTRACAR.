@@ -1,15 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 
-function NavBar() {
+export default function NavBar() {
   return (
     <header>
-      <Link
-        to={ '/services' }
-      >
-        Todos os Serviços
-      </Link>
-      /
       <Link
         to={ '/' }
       >
@@ -18,5 +12,3 @@ function NavBar() {
     </header>
   );
 }
-
-export default NavBar;

@@ -2,6 +2,13 @@ const ServicosModel = (sequelize, DataTypes) => {
   const Servicos = sequelize.define(
     "Servicos",
     {
+      id: {
+        allowNull: false,
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+      },
+
       total: {
         allowNull: false,
         type: DataTypes.INTEGER,
