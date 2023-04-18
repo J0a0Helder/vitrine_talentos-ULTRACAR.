@@ -11,7 +11,7 @@ module.exports = {
     },
     {
       id: 2,
-      nome: 'Maria Cláudia',
+      nome: 'Emidio Ferreira',
       carro: 'Chevrolet Onix',
       cor_carro: 'prata',
       telefone: '(25)99925-6311',

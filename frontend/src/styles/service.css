@@ -1,0 +1,84 @@
+.main-service {
+  align-content: center;
+  align-items: center;
+  background-position: bottom;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  height: 95vh;
+  justify-content: center;
+}
+
+.card-form {
+  align-items: center;
+  background: #2b2a2a;
+  border-radius: 10px;
+  box-shadow: 0 10px 40px #00000056;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 500px;
+  padding: 05px 35px;
+}
+
+.logo-service {
+  padding-left: 0%;
+}
+
+.card-form > h1 {
+  color: #f9cb00;
+  font-weight: 800;
+  margin: 0;
+}
+
+.text-field {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 10px 0;
+  width: 100%;
+}
+
+.text-field > select {
+  background: #f0efee;
+  border-radius: 5px;
+  box-shadow: 0 10px 40px #00000056;
+  box-sizing: border-box;
+  color: black;
+  font-size: 12pt;
+  outline: none;
+  padding: 15px;
+  width: 100%;
+}
+
+.text-field > select:focus {
+  border: 2px solid #f9bf00;
+}
+
+.text-field > h4 {
+  color: #f0ffffde;
+  margin-bottom: 10px;
+}
+
+.btn-finish {
+  background: transparent;
+  border: 2px solid #f9cb00;
+  border-radius: 5px;
+  color: #f9cb00;
+  cursor: pointer;
+  font-weight: 800;
+  letter-spacing: 2px;
+  margin: 15px;
+  outline: none;
+  padding: 16px 0;
+  text-transform: uppercase;
+  width: 100%;
+}
+
+.btn-new:hover {
+  background: #f9bf00;
+  color: black;
+  transition: 0.3s;
+}
+

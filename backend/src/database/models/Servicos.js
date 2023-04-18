@@ -2,6 +2,13 @@ const ServicosModel = (sequelize, DataTypes) => {
   const Servicos = sequelize.define(
     "Servicos",
     {
+      id: {
+        allowNull: false,
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+      },
+
       total: {
         allowNull: false,
         type: DataTypes.INTEGER,
@@ -15,25 +22,25 @@ const ServicosModel = (sequelize, DataTypes) => {
 
       finalizadoEm: {
         type: DataTypes.DATE,
-        allowNull: false,
+        allowNull: true,
         field: "finalizado_em",
       },
     },
     { underscored: true, timestamps: false, tableName: 'servicos' }
   );
 
-  Servicos.associate = ({ Colaboradores, Clientes }) => {
-    Colaboradores.belongsToMany(Clientes, {
+  Servicos.associate = (models) => {
+    models.Colaboradores.belongsToMany(models.Clientes, {
       as: "clientes",
       through: Servicos,
-      foreignKey: "colaborador_id",
-      otherKey: "clientes_id",
+      foreignKey: "colaboradorId",
+      otherKey: "clienteId",
     });
-    Clientes.belongsToMany(Colaboradores, {
+    models.Clientes.belongsToMany(models.Colaboradores, {
       as: "colaboradores",
       through: Servicos,
-      foreignKey: "clientes_id",
-      otherKey: "colaboradores_id",
+      foreignKey: "clienteId",
+      otherKey: "colaboradorId",
     });
   };
 
