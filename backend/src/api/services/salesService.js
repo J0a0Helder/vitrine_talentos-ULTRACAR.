@@ -1,11 +1,11 @@
-const { Servicos } = require('../../database/models');
+const { Servicos, Clientes, Colaboradores } = require('../../database/models');
 
 const createNewSale = async ({ total, colaboradorId, clienteId }) => {  
   const iniciadoEm = Date.now();
 
   const newService = {
-    colaborador_id: Number(colaboradorId),
-    cliente_id: Number(clienteId),
+    colaboradorId,
+    clienteId,
     iniciadoEm,
     total: Number(total),
   };
@@ -14,6 +14,22 @@ const createNewSale = async ({ total, colaboradorId, clienteId }) => {
   return allEmployees;
 };
 
+const getAllSales = async () => {
+  const sales = await Clientes.findAll(
+    {
+      include: [
+        {
+          model: Colaboradores,
+          as: 'colaboradores',
+          attributes: { exclude: ['id', 'cargo'] },
+        },
+      ],
+    },
+  );
+  return sales;
+};
+
 module.exports = {
   createNewSale,
+  getAllSales,
 };
