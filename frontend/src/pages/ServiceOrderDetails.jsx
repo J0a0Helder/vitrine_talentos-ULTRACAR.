@@ -23,7 +23,7 @@ export default function ServiceOrderDetails() {
     }
     try {
       await requestPut(`/service/${id}`, body);
-      navigate(`/finished`);
+      navigate(`/finished/${id}`);
     } catch (error) {
       console.log(error.message);
     }
