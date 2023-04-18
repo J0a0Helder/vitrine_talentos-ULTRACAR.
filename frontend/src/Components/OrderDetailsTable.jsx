@@ -1,93 +1,61 @@
-import React/* { useCallback, useEffect, useState } */from 'react';
-// import { useParams } from 'react-router-dom';
-// import { requestGet } from '../services/request';
-// import { convertTotal } from '../utils/formatValues';
+import React, { useCallback, useEffect, useState } from 'react';
+import { requestGet } from '../services/request';
+import { convertTotal, convertDate, addZerosOnRightSide } from '../utils/formatValues';
+
 
 function OrderDetailsTable() {
-  // const { id } = useParams();
+  const [salesList, setSalesList] = useState([]);
 
-  // const getOrder = useCallback(async () => {
-  //   try {
-  //     const { products, totalPrice } = await requestGet(`/sales/${id}`);
-  //     setProductsList(products);
-  //     setTotal(totalPrice);
-  //   } catch (error) {
-  //     console.log(error.message);
-  //   }
-  // }, [id]);
+  const getSales = useCallback(async () => {
+    try {
+      const order = await requestGet('/service');
+      setSalesList(order);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }, []);
 
-  // useEffect(() => {
-  //   getOrder();
-  // }, [getOrder]);
+  useEffect(() => {
+    getSales();
+  }, [getSales]);
 
   return (
-    <h1>ok</h1>
-    // <div className="container">
-    //   <table>
-    //     <thead>
-    //       <tr>
-    //         <th>Item</th>
-    //         <th>Descrição</th>
-    //         <th>Quantidade</th>
-    //         <th>Valor Unitário</th>
-    //         <th>Sub-total</th>
-    //       </tr>
-    //     </thead>
-    //     <tbody>
-    //       {
-    //         productsList.map((e, i) => (
-    //           <tr key={ i }>
-    //             <td
-    //               data-testid={
-    //                 `${type}_order_details__element-order-table-item-number-${i}`
-    //               }
-    //             >
-    //               {i + 1}
-    //             </td>
-    //             <td
-    //               data-testid={
-    //                 `${type}_order_details__element-order-table-name-${i}`
-    //               }
-    //             >
-    //               {e.name}
-    //             </td>
-    //             <td
-    //               data-testid={
-    //                 `${type}_order_details__element-order-table-quantity-${i}`
-    //               }
-    //             >
-    //               {e.SalesProducts.quantity}
-    //               x
-    //             </td>
-    //             <td
-    //               data-testid={
-    //                 `${type}_order_details__element-order-table-unit-price-${i}`
-    //               }
-    //             >
-    //               {`R$${convertTotal(e.price)}`}
-    //             </td>
-    //             <td
-    //               data-testid={
-    //                 `${type}_order_details__element-order-table-sub-total-${i}`
-    //               }
-    //             >
-    //               {`R$${convertTotal((e.price * e.SalesProducts.quantity))}`}
-    //             </td>
-    //           </tr>
-    //         ))
-    //       }
-    //     </tbody>
-    //   </table>
-    //   <h2
-    //     className="total-price"
-    //     data-testid={
-    //       `${type}_order_details__element-order-total-price`
-    //     }
-    //   >
-    //     TOTAL: R$
-    //     {convertTotal(total)}
-    //   </h2>
-    // </div>
+    <div className="container">
+      <table>
+        <thead>
+          <tr>
+            <th>número</th>
+            <th>colaborador</th>
+            <th>cliente</th>
+            <th>Valor Unitário</th>
+            <th>Iniciado em</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            salesList.map((sale, i) => (
+              <tr key={ i }>
+                <td>
+                  {addZerosOnRightSide(sale.id)}
+                </td>
+                <td>
+                  {sale.colaborador.nome}
+                </td>
+                <td>
+                  {sale.cliente.nome}
+                </td>
+                <td>
+                  {`R$${convertTotal(sale.total)}`}
+                </td>
+                <td>
+                  {convertDate(sale.iniciadoEm)}
+                </td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
   );
 }
 

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { requestPost } from '../services/request';
 import MyContext from '../context/MyContext';
 import NavBar from '../Components/Navbar';
+import { convertTotal } from '../utils/formatValues';
 
 export default function HomePage() {
   const {
@@ -95,7 +96,7 @@ export default function HomePage() {
             ))}
           </select>
         </label>
-        <h2>TOTAL PARCIAL: {`R$${saleInfo.total}`}</h2>
+        <h2>TOTAL PARCIAL: {convertTotal(saleInfo.total)}</h2>
         <button
             type="button"
             className="button"
