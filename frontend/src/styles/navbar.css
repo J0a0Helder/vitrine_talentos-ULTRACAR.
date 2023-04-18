@@ -1,0 +1,18 @@
+header a {
+  color: #f9bf00;
+  text-decoration: none;
+  transition: all 0.3s ease 0s;
+  text-transform: uppercase;
+}
+
+header a:hover {
+  color: #fade81;
+}
+
+.link {
+  display: flex;
+  flex-grow: 2;
+  font-size: 2em;
+  gap: 20px;
+  justify-content: center;
+}

@@ -2,7 +2,8 @@ import React, { useContext, useEffect, useState, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { requestGet, requestPost } from '../services/request';
 import MyContext from '../context/MyContext';
-import NavBar from '../Components/Navbar';
+import '../styles/homePage.css'
+import logo from '../images/logo.png'
 
 export default function HomePage() {
   const {
@@ -52,75 +53,79 @@ export default function HomePage() {
   }, [getClients, getEmployees]);
 
   return (
-    <>
-      <NavBar />
-      <form>
-      <label>
-          <h4>P. colaboradora Responsável:</h4>
-          <select
-            name="colaboradorId"
-            onChange={handleChange}
+    <main className='main-home'>
+      <section>
+        <div className="logo">
+          <img src={ logo } alt="logo imagem" width='300px' />
+        </div>
+        <form className="card-form">
+        <label className='text-field'>
+            <h4>P. colaboradora Responsável:</h4>
+            <select
+              name="colaboradorId"
+              onChange={handleChange}
+            >
+              { employeesList.map((emp, index) => (
+                <option
+                  key={ index }
+                  name={ emp.nome }
+                  value={ emp.id }
+                >
+                  {emp.nome}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label className='text-field'>
+            <h4>Selecione o Cliente:</h4>
+            <select
+              name="clienteId"
+              onChange={ handleChange }
+            >
+              { clientsLists.map((client, index) => (
+                <option
+                  key={ index }
+                  name={ client.nome }
+                  value={ client.id }
+                >
+                  {client.nome}
+                </option>
+              ))}
+            </select>
+          </label>
+          <button
+            type="button"
+            className="btn-dados"
+            onClick={ getClientInfo }
           >
-            { employeesList.map((emp, index) => (
-              <option
-                key={ index }
-                name={ emp.nome }
-                value={ emp.id }
-              >
-                {emp.nome}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label>
-          <h4>Selecione o Cliente:</h4>
-          <select
-            name="clienteId"
-            onChange={ handleChange }
+            Visualizar dados do cliente
+          </button>
+          {
+            showButton &&
+            (
+              <>
+                <h1>{`Carro: ${clientInfo.carro}`}</h1>
+                <h1>{`Cor: ${clientInfo.corCarro}`}</h1>
+                <h1>{`Telefone: ${clientInfo.telefone}`}</h1>
+                <button
+                  type="button"
+                  className="btn-dados"
+                  onClick={ startService }
+                >
+                  Iniciar Atendimento
+                </button>
+              </>
+            )
+          }
+          <h3>ou</h3>
+          <button
+            type="button"
+            className="btn-new"
           >
-            { clientsLists.map((client, index) => (
-              <option
-                key={ index }
-                name={ client.nome }
-                value={ client.id }
-              >
-                {client.nome}
-              </option>
-            ))}
-          </select>
-        </label>
-        <button
-          type="button"
-          className="button"
-          onClick={ getClientInfo }
-        >
-          Visualizar dados do cliente
-        </button>
-        {
-          showButton &&
-          (
-            <>
-              <button
-                type="button"
-                className="button"
-                onClick={ startService }
-              >
-                Iniciar Atendimento
-              </button>
-              <h1>{`Carro: ${clientInfo.carro}`}</h1>
-              <h2>{`Cor: ${clientInfo.corCarro}`}</h2>
-              <h2>{`Telefone: ${clientInfo.telefone}`}</h2>
-            </>
-          )
-        }
-        <h3>ou</h3>
-        <button
-          type="button"
-          className="button"
-        >
-          Cadastrar um novo cliente
-        </button>
-      </form>
-    </>
+            Cadastrar um novo cliente
+          </button>
+        </form>
+      </section>
+    </main>
   )
 }

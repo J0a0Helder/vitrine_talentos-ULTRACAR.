@@ -4,6 +4,8 @@ import MyContext from '../context/MyContext';
 import { convertTotal } from '../utils/formatValues';
 import { useNavigate, useParams } from 'react-router-dom';
 import { requestPut } from '../services/request';
+import '../styles/service.css'
+import logo from '../images/logo.png'
 
 export default function ServiceOrderDetails() {
   const { getProducts, productsList } = useContext(MyContext);
@@ -44,35 +46,41 @@ export default function ServiceOrderDetails() {
   }, [getProducts]);
 
   return (
-    <div>
+    <>
       <Navbar />
-      <form>
-        <label>
-          <h4>Produto Usado:</h4>
-          <select
-            name="total"
-            onChange={handleChange}
-            defaultValue={'Apenas Mão de Obra'}
+      <main className='main-service'>
+        <div className="logo-service">
+          <img src={ logo } alt="logo imagem" width='300px' />
+        </div>
+        <form className='card-form'>
+          <label className='text-field'>
+            <h4>Produto Usado:</h4>
+            <select
+              name="total"
+              onChange={handleChange}
+              defaultValue={'Apenas Mão de Obra'}
+            >
+              { productsList.map((prod, index) => (
+                <option
+                  key={ index }
+                  name={ prod.nome }
+                  value={ prod.preco }
+                >
+                  {prod.nome}
+                </option>
+              ))}
+            </select>
+          </label>
+          <h1>TOTAL: {convertTotal(serviceInfo.total)}</h1>
+          <button
+            type='button'
+            onClick={finishSale}
+            className='btn-finish '
           >
-            { productsList.map((prod, index) => (
-              <option
-                key={ index }
-                name={ prod.nome }
-                value={ prod.preco }
-              >
-                {prod.nome}
-              </option>
-            ))}
-          </select>
-        </label>
-        <h2>TOTAL: {convertTotal(serviceInfo.total)}</h2>
-        <button
-          type='button'
-          onClick={ finishSale }
-        >
-          Finalizar Atendimento
-        </button>
-      </form>
-    </div>
+            Finalizar Atendimento
+          </button>
+        </form>
+      </main>
+    </>
   );
 }

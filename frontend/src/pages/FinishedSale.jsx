@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { requestGet } from '../services/request';
 import NavBar from '../Components/Navbar';
 import { convertDate, convertTotal } from '../utils/formatValues';
+import '../styles/finishPage.css';
 
 export default function FinishedSale() {
   const { id } = useParams();
@@ -32,8 +33,8 @@ export default function FinishedSale() {
   return (
     <>
       <NavBar />
-      <h1>Serviço Finalizado:</h1>
-      <table className="usersTable">
+      <h1 className='finished-title'>Serviço Finalizado:</h1>
+      <table className="serviceTable">
         <thead>
           <tr>
             <th>Cliente</th>
