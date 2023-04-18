@@ -20,8 +20,8 @@ técnico fará:
 - Ao iniciar o serviço (confirmação) deverá ser administrado internamente a data/hora do inicio e a data/inicio do termino da execução do serviço.
 ## Stacks utilizadas
 
-- Front-End: React, Axios.
-- Back-end: Javascript, Node.js, Docker, Sequelize.
+- Front-End: ``React``, ``Axios``.
+- Back-end: ``Javascript``, ``Node.js``, ``Docker``, ``Sequelize``.
 ## Rodando o Projeto (Docker)
 
 1. Clone o repositório em sua máquina local.
@@ -30,9 +30,18 @@ técnico fará:
 
 3. Execute o comando npm run compose:up para iniciar a aplicação.
 
-4. Acesse o endereço http://localhost:3000 para acessar o site e http://localhost:3001 para acessar a API.
+4. Execute o comando npm run db:reset para resetar o banco.
 
-5. Caso encontre o erro **ERROR in ./src/services/request.js 3:0-26 Module not found: Error: Can't resolve 'axios' in '/frontend/src/services'** entre na pasta frontend com o comando *cd frontend* e execute o comando **npm start**, logo após na pasta backend e execute o comando **npm run dev**.
+5. Acesse o endereço http://localhost:3000 para acessar o site e http://localhost:3001 para acessar a API.
+
+6. Caso encontre o erro **ERROR in ./src/services/request.js 3:0-26 Module not found: Error: Can't resolve 'axios' in '/frontend/src/services'** entre na pasta frontend com o comando *cd frontend* e execute o comando **npm start**, logo após na pasta backend e execute o comando **npm run dev**.
+
+- Caso encontre o seguinte erro: 
+
+![Captura de tela de 2023-04-18 17-24-17](https://user-images.githubusercontent.com/106708779/232896643-e7025d84-2fba-4be1-9fbe-c39a25363639.png)
+
+- utilize o comando `` sudo kill -9 `sudo lsof -t -i:3001` ``
+
 ## Funcionalidades
 
 ### 1ª tela
